@@ -15,6 +15,17 @@ function populateTable(data) {
                              <td class="${pid.L_image.toLowerCase()}">${pid.L_image}</td>
                              <td class="${pid.R_image.toLowerCase()}">${pid.R_image}</td>
                              <td class="${pid.Video.toLowerCase()}">${pid.Video}</td>`;
+
+            // Add classes based on cell values for coloring
+            row.querySelectorAll('td').forEach(function(cell) {
+                var cellText = cell.textContent.trim();
+                if (cellText.toLowerCase() === 'yes') {
+                    cell.classList.add('yes');
+                } else if (cellText.toLowerCase() === 'no') {
+                    cell.classList.add('no');
+                }
+            });
+
             tbody.appendChild(row);
             rowCounter++;
         });

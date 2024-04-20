@@ -15,7 +15,7 @@ h1 {
 
 table {
     border-collapse: collapse;
-    width: 90%;
+    width: auto; /* Adjusted to auto width */
     margin: 0 auto;
 }
 
@@ -32,47 +32,23 @@ td {
     padding: 6px;
     text-align: left;
     font-size: 14px;
+    max-width: 150px; /* Adjusted max-width for cells */
+    white-space: nowrap; /* Prevent line break */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Add ellipsis for overflow content */
 }
 
 .filter-container {
     margin-bottom: 4px;
+    padding: 0 6px; /* Add padding to prevent overlap */
 }
+
 
 input[type="text"],
 select {
     width: 100%;
     padding: 4px;
     font-size: 14px;
-}
-
-
-
-
-h1 {
-    text-align: center;
-    padding: 20px 0;
-    color: #333;
-}
-
-.filters {
-    text-align: right;
-    margin-right: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    width: 90%;
-    margin: 20px auto;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
 }
 
 .yes {
