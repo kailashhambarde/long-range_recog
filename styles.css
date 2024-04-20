@@ -65,7 +65,7 @@ select {
 #logo-container {
     position: fixed;
     top: 8%; /* Adjust as needed */
-    left: 15%; /* Adjust as needed */
+    left: 5%; /* Adjust as needed */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -76,7 +76,7 @@ select {
 }
 
 #logo-container img {
-    width: 160px; /* Adjust as needed */
+    width: 30px; /* Adjust as needed */
     height: auto; /* Maintain aspect ratio */
     margin-bottom: 20px; /* Increase margin for better spacing */
 }
