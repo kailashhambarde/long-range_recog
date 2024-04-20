@@ -58,3 +58,25 @@ select {
 .no {
     background-color: #ef9a9a; /* Dark red */
 }
+
+/* styles.css */
+
+/* Logo container */
+#logo-container {
+    position: fixed;
+    top: 8%; /* Adjust as needed */
+    left: 15%; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Add background color with transparency */
+    border-radius: 10px; /* Add border radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+#logo-container img {
+    width: 160px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Increase margin for better spacing */
+}
