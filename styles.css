@@ -2,7 +2,22 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    padding-top: 150px; /* Add padding to accommodate the logos */
+}
+
+
+#logo-container {
+    display: flex;
+    flex-direction: row; 
+    margin-left: 35%;
+
+}
+
+#logo-container img {
+    width: 120px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Increase margin for spacing between logs */
+    border: 2px solid black; /* Add border to each log */
 }
 
 h1 {
@@ -17,6 +32,7 @@ table {
     border-collapse: collapse;
     width: auto; /* Adjusted to auto width */
     margin: 0 auto;
+    margin-top: 50px; /* Add margin to move table below logos */
 }
 
 thead th {
@@ -43,7 +59,6 @@ td {
     padding: 0 6px; /* Add padding to prevent overlap */
 }
 
-
 input[type="text"],
 select {
     width: 100%;
@@ -57,26 +72,4 @@ select {
 
 .no {
     background-color: #ef9a9a; /* Dark red */
-}
-
-/* styles.css */
-
-/* Logo container */
-#logo-container {
-    position: fixed;
-    top: 8%; /* Adjust as needed */
-    left: 15%; /* Adjust as needed */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Add background color with transparency */
-    border-radius: 10px; /* Add border radius for rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-}
-
-#logo-container img {
-    width: 120px; /* Adjust as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Increase margin for better spacing */
 }
