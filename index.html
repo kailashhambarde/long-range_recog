@@ -1,92 +1,718 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Human Recognition and Identification From Range and Elevation</title>
-<link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Human Recognition and Identification From Range and Elevation</title>
 
-</head>
-<body>
+    <style>
+      body {
+        background: #f4f4f4;
+      }
 
-<div id="logo-container">
-    <img src="logo/ubi.png" alt="UBI Logo">
-    <img src="logo/srt.png" alt="SRT Logo">
-    <img src="logo/istanbul.png" alt="Istanbul Logo">
-    <img src="logo/srm_logo.png" alt="SRM Logo">
-    <img src="logo/husen.png" alt="Husen Logo">
-</div>
+      .tbl-container {
+        max-width: 90%;
+        max-height: fit-content;
+        align-items: center;
+        margin: 0 auto;
+      }
 
-<h1>Dashboard</h1>
+      .tbl-fixed {
+        overflow-x: auto;
+        overflow-y: scroll;
+        height: fit-content;
+        max-height: 70vh;
+      }
 
-<table>
-    <thead>
-        <tr>
-            <th>
+      table {
+        width: 100%; /* Set the width to 90% */
+        border-collapse: separate;
+      }
+
+      table th {
+        position: sticky;
+        top: 0px;
+        background: #e8d468;
+        text-align: center;
+        color: #280505;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        cursor: pointer; /* Add cursor pointer for column selection */
+      }
+
+      table td {
+        background: #fff;
+        border: 1px solid #ccc;
+      }
+
+      #tbl-fixed tr:hover {
+        background-color: #c8e6c9; /* Light green */
+      }
+
+      /* Make the Participant ID column header sticky */
+      table th:nth-child(3) {
+        position: sticky;
+        left: 0;
+        background: #e8d468;
+        text-align: center;
+        color: #280505;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        z-index: 1; /* Ensure the header stays above other elements */
+      }
+
+      /* Make the Participant ID column data cells sticky */
+      table td:nth-child(3) {
+        position: sticky;
+        left: 0;
+        background: #fff;
+        z-index: 0; /* Ensure the data cells stay below the header */
+        border: 1px solid #ccc;
+      }
+      /* Styling for logo container */
+      #logo-container {
+        display: flex; /* Use flexbox layout */
+        justify-content: center; /* Center-align content horizontally */
+        margin-bottom: 30px; /* Add bottom margin */
+      }
+
+      /* Styling for logo images */
+      #logo-container img {
+        width: 120px; /* Set width of logo images */
+        height: auto; /* Maintain aspect ratio */
+        margin-right: 20px; /* Add right margin */
+        border: 2px solid #000; /* Border */
+        border-radius: 50%; /* Make the logo images circular */
+        transition: transform 0.3s ease; /* Add a smooth transition effect */
+      }
+
+      /* Hover effect for logo images */
+      #logo-container img:hover {
+        transform: scale(1.1); /* Scale up the logo on hover */
+      }
+
+      /* Additional styling for the logo container */
+      #logo-container::after {
+        content: ""; /* Add content */
+        display: block; /* Make it a block element */
+        clear: both; /* Clear floats */
+      }
+
+      .yes {
+        background-color: #c8e6c9; /* Light green */
+      }
+
+      .no {
+        background-color: #ef9a9a; /* Dark red */
+      }
+
+      #nav {
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+
+  #nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 8px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+  }
+
+  #nav a:hover {
+    background-color: #555;
+  }
+
+      /* Additional styles for sections */
+      section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="logo-container">
+      <img src="logo/ubi.png" alt="UBI Logo" />
+      <img src="logo/srt.png" alt="SRT Logo" />
+      <img src="logo/istanbul.png" alt="Istanbul Logo" />
+      <img src="logo/srm_logo.png" alt="SRM Logo" />
+      <img src="logo/husen.png" alt="Husen Logo" />
+    </div>
+
+    <div id="nav">
+      <a href="#tb">Status Table</a>
+      <a href="#gender">Gender</a>
+      <a href="#age">Age</a>
+      <a href="#height">Height</a>
+      <a href="#weight">Weight</a>
+      <a href="#ethnicity">Ethnicity</a>
+      <a href="#hair-color">Hair Color</a>
+      <a href="#hairstyle">Hairstyle</a>
+      <a href="#beard">Beard</a>
+      <a href="#moustache">Moustache</a>
+      <a href="#glasses">Glasses</a>
+      <a href="#head-accessories">Head Accessories</a>
+      <a href="#upper-body-clothing">Upper Body Clothing</a>
+      <a href="#lower-body-clothing">Lower Body Clothing</a>
+      <a href="#feet">Feet</a>
+      <a href="#accessories">Accessories</a>
+      <a href="#action">Action</a>
+    </div>
+
+    <!-- Sections for attributes -->
+    <section id="gender">
+      <h2>Gender</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="gender-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="age">
+      <h2>Age</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="age-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="height">
+      <h2>Height</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="height-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="weight">
+      <h2>Weight</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="weight-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="ethnicity">
+      <h2>Ethnicity</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="ethnicity-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="hair-color">
+      <h2>Hair Color</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="hair-color-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="hairstyle">
+      <h2>Hairstyle</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="hairstyle-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="beard">
+      <h2>Beard</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="beard-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="moustache">
+      <h2>Moustache</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="moustache-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="glasses">
+      <h2>Glasses</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="glasses-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="head-accessories">
+      <h2>Head Accessories</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="head-accessories-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="upper-body-clothing">
+      <h2>Upper Body Clothing</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="upper-body-clothing-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="lower-body-clothing">
+      <h2>Lower Body Clothing</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="lower-body-clothing-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="feet">
+      <h2>Feet</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="feet-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="accessories">
+      <h2>Accessories</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="accessories-chart" style="height: 300px"></div>
+    </section>
+
+    <section id="action">
+      <h2>Action</h2>
+      <!-- Placeholder for histogram graph -->
+      <div id="action-chart" style="height: 300px"></div>
+    </section>
+
+    <div id="tb" class="container tbl-container">
+      <div class="row tbl-fixed">
+        <table class="table-striped table-condensed">
+          <thead>
+            <tr>
+              <th title="Serial Number">
                 SR NO.
                 <div class="filter-container">
-                    <input type="text" id="filterSR" placeholder="Search...">
+                  <input type="text" id="filterSR" placeholder="Search..." />
                 </div>
-            </th>
-            <th>
+              </th>
+              <th title="Representative">
                 REPRESENTATIVE
                 <div class="filter-container">
-                    <input type="text" id="filterRepresentative" placeholder="Search...">
+                  <input
+                    type="text"
+                    id="filterRepresentative"
+                    placeholder="Search..."
+                  />
                 </div>
-            </th>
-            <th>
+              </th>
+              <th title="Participant ID">
                 PID
                 <div class="filter-container">
-                    <input type="text" id="filterPID" placeholder="Search...">
+                  <input type="text" id="filterPID" placeholder="Search..." />
                 </div>
-            </th>
-            <th>
+              </th>
+              <th title="Consent">
+                CONSENT
+                <div class="filter-container">
+                  <select id="filterConsent">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Front Image">
                 F_IMAGE
                 <div class="filter-container">
-                    <select id="filterF_image">
-                        <option value="all">All</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                  <select id="filterF_image">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
                 </div>
-            </th>
-            <th>
+              </th>
+              <th title="Left Image">
                 L_IMAGE
                 <div class="filter-container">
-                    <select id="filterL_image">
-                        <option value="all">All</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                  <select id="filterL_image">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
                 </div>
-            </th>
-            <th>
+              </th>
+              <th title="Right Image">
                 R_IMAGE
                 <div class="filter-container">
-                    <select id="filterR_image">
-                        <option value="all">All</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                  <select id="filterR_image">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
                 </div>
-            </th>
-            <th>
+              </th>
+              <th title="Video">
                 VIDEO
                 <div class="filter-container">
-                    <select id="filterVideo">
-                        <option value="all">All</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                  <select id="filterVideo">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
                 </div>
-            </th>
-        </tr>
-    </thead>
-    <tbody id="table-body">
-    </tbody>
-</table>
+              </th>
+              <th title="Season:1, Session:1, P:30, H:5.8, D:10">
+                S1P1
+                <div class="filter-container">
+                  <select id="filterS1P1">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
 
-<script src="script.js"></script>
+              <th title="Season:1, Session:1, P:30, H:11.3, D:20">
+                S1P2
+                <div class="filter-container">
+                  <select id="filterS1P2">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:30, H:17.5, D:30">
+                S1P3
+                <div class="filter-container">
+                  <select id="filterS1P3">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:30, H:23.1, D:40">
+                S1P4
+                <div class="filter-container">
+                  <select id="filterS1P4">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:30, H:40, D:80">
+                S1P5
+                <div class="filter-container">
+                  <select id="filterS1P5">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:30, H:60, D:120">
+                S1P6
+                <div class="filter-container">
+                  <select id="filterS1P6">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:60, H:15, D:10">
+                S1P7
+                <div class="filter-container">
+                  <select id="filterS1P7">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
 
-</body>
+              <th title="Season:1, Session:1, P:60, H:30, D:20">
+                S1P8
+                <div class="filter-container">
+                  <select id="filterS1P8">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:60, H:45, D:30">
+                S1P9
+                <div class="filter-container">
+                  <select id="filterS1P9">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:60, H:60, D:40">
+                S1P10
+                <div class="filter-container">
+                  <select id="filterS1P10">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:60, H:75, D:80">
+                S1P11
+                <div class="filter-container">
+                  <select id="filterS1P11">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:60, H:90, D:120">
+                S1P12
+                <div class="filter-container">
+                  <select id="filterS1P12">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:90, H:10, D:0">
+                S1P13
+                <div class="filter-container">
+                  <select id="filterS1P13">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+
+              <th title="Season:1, Session:1, P:90, H:20, D:0">
+                S1P14
+                <div class="filter-container">
+                  <select id="filterS1P14">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:90, H:30, D:0">
+                S1P15
+                <div class="filter-container">
+                  <select id="filterS1P15">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:90, H:40, D:0">
+                S1P16
+                <div class="filter-container">
+                  <select id="filterS1P16">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:90, H:80, D:0">
+                S1P17
+                <div class="filter-container">
+                  <select id="filterS1P17">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:90, H:120, D:0">
+                S1P18
+                <div class="filter-container">
+                  <select id="filterS1P18">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+
+              <th title="Season:1, Session:2, P:30, H:5.8, D:10">
+                S2P1
+                <div class="filter-container">
+                  <select id="filterS2P1">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+
+              <th title="Season:1, Session:2, P:30, H:11.3, D:20">
+                S2P2
+                <div class="filter-container">
+                  <select id="filterS2P2">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:30, H:17.5, D:30">
+                S2P3
+                <div class="filter-container">
+                  <select id="filterS2P3">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:30, H:23.1, D:40">
+                S2P4
+                <div class="filter-container">
+                  <select id="filterS2P4">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:30, H:40, D:80">
+                S2P5
+                <div class="filter-container">
+                  <select id="filterS2P5">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:30, H:60, D:120">
+                S2P6
+                <div class="filter-container">
+                  <select id="filterS2P6">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:60, H:15, D:10">
+                S2P7
+                <div class="filter-container">
+                  <select id="filterS2P7">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+
+              <th title="Season:1, Session:2, P:60, H:30, D:20">
+                S2P8
+                <div class="filter-container">
+                  <select id="filterS2P8">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:60, H:45, D:30">
+                S2P9
+                <div class="filter-container">
+                  <select id="filterS2P9">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:60, H:60, D:40">
+                S2P10
+                <div class="filter-container">
+                  <select id="filterS2P10">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:1, P:60, H:75, D:80">
+                S2P11
+                <div class="filter-container">
+                  <select id="filterS2P11">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:60, H:90, D:120">
+                S2P12
+                <div class="filter-container">
+                  <select id="filterS2P12">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:90, H:10, D:0">
+                S2P13
+                <div class="filter-container">
+                  <select id="filterS2P13">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+
+              <th title="Season:1, Session:2, P:90, H:20, D:0">
+                S2P14
+                <div class="filter-container">
+                  <select id="filterS2P14">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:90, H:30, D:0">
+                S2P15
+                <div class="filter-container">
+                  <select id="filterS2P15">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:90, H:40, D:0">
+                S2P16
+                <div class="filter-container">
+                  <select id="filterS2P16">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:90, H:80, D:120">
+                S2P17
+                <div class="filter-container">
+                  <select id="filterS2P17">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+              <th title="Season:1, Session:2, P:90, H:120, D:0">
+                S2P18
+                <div class="filter-container">
+                  <select id="filterS2P18">
+                    <option value="all">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>

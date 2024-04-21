@@ -5,19 +5,17 @@ body {
     padding-top: 150px; /* Add padding to accommodate the logos */
 }
 
-
 #logo-container {
     display: flex;
     flex-direction: row; 
     margin-left: 35%;
-
 }
 
 #logo-container img {
     width: 120px; /* Adjust as needed */
     height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Increase margin for spacing between logs */
-    border: 2px solid black; /* Add border to each log */
+    margin-bottom: 20px; /* Increase margin for spacing between logos */
+    border: 2px solid black; /* Add border to each logo */
 }
 
 h1 {
@@ -28,30 +26,37 @@ h1 {
     margin-top: 20px;
 }
 
-table {
-    border-collapse: collapse;
-    width: auto; /* Adjusted to auto width */
-    margin: 0 auto;
-    margin-top: 50px; /* Add margin to move table below logos */
+
+.tbl-container{
+    max-width: fit-content;
+    max-height: fit-content;
 }
 
-thead th {
-    border: 1px solid #ddd;
-    padding: 6px;
-    text-align: center; /* Center align column names */
-    background-color: #f2f2f2;
-    font-size: 18px;
+.tbl-fixed{
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: fit-content;
+    max-height: 70vh;
 }
 
-td {
-    border: 1px solid #ddd;
-    padding: 6px;
-    text-align: left;
-    font-size: 14px;
-    max-width: 150px; /* Adjusted max-width for cells */
-    white-space: nowrap; /* Prevent line break */
-    overflow: hidden; /* Hide overflow content */
-    text-overflow: ellipsis; /* Add ellipsis for overflow content */
+table{
+    min-width: fit-content;
+    border-collapse: separate;
+}
+
+table th {
+    position: sticky;
+    top: 0px;
+    background: #e8d468;
+    text-align: center;
+    color: #280505;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+table td{
+    background: #fff;
+    border: 1px solid #ccc;
 }
 
 .filter-container {
@@ -72,4 +77,55 @@ select {
 
 .no {
     background-color: #ef9a9a; /* Dark red */
+}
+
+.scroll-left,
+.scroll-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.scroll-left {
+    left: 0;
+}
+
+.scroll-right {
+    right: 0;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
