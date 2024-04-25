@@ -1,5 +1,4 @@
 function populateTable(data) {
-    // Log the data to see what we have
     console.log(data);
 
     var tbody = document.getElementById("table-body");
@@ -30,6 +29,12 @@ function populateTable(data) {
           <td class="${pid.S1P10 ? pid.S1P10.toLowerCase() : ''}">${pid.S1P10 ? pid.S1P10 : ''}</td>
           <td class="${pid.S1P11 ? pid.S1P11.toLowerCase() : ''}">${pid.S1P11 ? pid.S1P11 : ''}</td>
           <td class="${pid.S1P12 ? pid.S1P12.toLowerCase() : ''}">${pid.S1P12 ? pid.S1P12 : ''}</td>
+          <td class="${pid.S1P13 ? pid.S1P13.toLowerCase() : ''}">${pid.S1P13 ? pid.S1P13 : ''}</td>
+          <td class="${pid.S1P14 ? pid.S1P14.toLowerCase() : ''}">${pid.S1P14 ? pid.S1P14 : ''}</td>
+          <td class="${pid.S1P15 ? pid.S1P15.toLowerCase() : ''}">${pid.S1P15 ? pid.S1P15 : ''}</td>
+          <td class="${pid.S1P16 ? pid.S1P16.toLowerCase() : ''}">${pid.S1P16 ? pid.S1P16 : ''}</td>
+          <td class="${pid.S1P17 ? pid.S1P17.toLowerCase() : ''}">${pid.S1P17 ? pid.S1P17 : ''}</td>
+          <td class="${pid.S1P18 ? pid.S1P18.toLowerCase() : ''}">${pid.S1P18 ? pid.S1P18 : ''}</td>
           <td class="${pid.S2P1 ? pid.S2P1.toLowerCase() : ''}">${pid.S2P1 ? pid.S2P1 : ''}</td>
           <td class="${pid.S2P2 ? pid.S2P2.toLowerCase() : ''}">${pid.S2P2 ? pid.S2P2 : ''}</td>
           <td class="${pid.S2P3 ? pid.S2P3.toLowerCase() : ''}">${pid.S2P3 ? pid.S2P3 : ''}</td>
@@ -47,10 +52,8 @@ function populateTable(data) {
           <td class="${pid.S2P15 ? pid.S2P15.toLowerCase() : ''}">${pid.S2P15 ? pid.S2P15 : ''}</td>
           <td class="${pid.S2P16 ? pid.S2P16.toLowerCase() : ''}">${pid.S2P16 ? pid.S2P16 : ''}</td>
           <td class="${pid.S2P17 ? pid.S2P17.toLowerCase() : ''}">${pid.S2P17 ? pid.S2P17 : ''}</td>
-          <td class="${pid.S2P18 ? pid.S2P18.toLowerCase() : ''}">${pid.S2P18 ? pid.S2P18 : ''}</td>
-          `;
+          <td class="${pid.S2P18 ? pid.S2P18.toLowerCase() : ''}">${pid.S2P18 ? pid.S2P18 : ''}</td>`;
            
-            // Add classes based on cell values for coloring
             row.querySelectorAll("td").forEach(function (cell) {
                 var cellText = cell.textContent.trim();
                 if (cellText.toLowerCase() === "yes") {
@@ -65,18 +68,126 @@ function populateTable(data) {
         });
     });
 
+    fetchAndPlotHistogram();
+}
+function fetchAndPlotHistogram() {
+    Promise.all([
+        fetch("data.json").then(response => response.json()), 
+        fetch("attribute_counts.json").then(response => response.json())
+    ])
+    .then(([tableData, histogramData]) => {
+        populateTable(tableData); 
+        // Plot histograms for each section
+        plotHistogram('gender', histogramData.Gender);
+        plotHistogram('age', histogramData.Age);
+        plotHistogram('height', histogramData.Height);
+        plotHistogram('weight', histogramData.Weight);
+        plotHistogram('ethnicity', histogramData.Ethnicity);
+        plotHistogram('hair-color', histogramData['Hair Color']);
+        plotHistogram('hairstyle', histogramData['Hair Style']);
+        plotHistogram('beard', histogramData.Beard);
+        plotHistogram('moustache', histogramData.Moustache);
+        plotHistogram('glasses', histogramData.Glasses);
+        plotHistogram('head-accessories', histogramData['Head Accessories']);
+        plotHistogram('upper-body-clothing', histogramData['Upper Body Cloths']);
+        plotHistogram('lower-body-clothing', histogramData['Lower Body Cloths']);
+        plotHistogram('feet', histogramData.Feet);
+        plotHistogram('accessories', histogramData.Accessories);
+        plotHistogram('action', histogramData.Action);
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
+
+/**
+ * Plot a histogram chart.
+ * @param {string} sectionId - The ID of the section where the chart will be rendered.
+ * @param {Object} data - The data object containing labels and corresponding values.
+ */
+function plotHistogram(sectionId, data) {
+    const ctx = document.getElementById(`${sectionId}-chart`).getContext('2d');
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+    const backgroundColors = generateRandomColors(labels.length); 
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '', 
+                data: values,
+                backgroundColor: backgroundColors,
+                borderColor: backgroundColors, 
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false 
+                },
+                tooltip: {
+                    enabled: true 
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    display: true, 
+                    color: 'black', 
+                    font: {
+                        weight: 'bold' 
+                    },
+                    formatter: function(value, context) {
+                        return value.toLocaleString(); 
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        display: true, 
+                        color: 'rgba(0, 0, 0, 0.1)' 
+                    },
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return value.toLocaleString(); 
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false 
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+function generateRandomColors(count) {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+        const color = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.6)`;
+        colors.push(color);
+    }
+    return colors;
 }
 
 
 
+fetchAndPlotHistogram();
 
-// Function to filter the table by column
 function filterTableByColumn(columnIndex, filterValue) {
     var rows = document.querySelectorAll("#table-body tr");
 
     rows.forEach(function (row) {
         var cell = row.querySelectorAll("td")[columnIndex];
-        if (!cell) return; // If cell does not exist (header row), skip
+        if (!cell) return; 
         if (
             filterValue === "all" ||
             cell.textContent.toLowerCase().includes(filterValue.toLowerCase())
@@ -88,9 +199,6 @@ function filterTableByColumn(columnIndex, filterValue) {
     });
 }
 
-
-
-// Add event listeners for filters
 document.getElementById("filterSR").addEventListener("input", function () {
     filterTableByColumn(0, this.value);
 });
@@ -134,11 +242,3 @@ for (var j = 1; j <= 18; j++) {
         filterTableByColumn(25 + j, this.value);
     });
 }
-
-// Fetch the JSON file
-fetch("data.json")
-    .then((response) => response.json())
-    .then((data) => {
-        populateTable(data);
-    })
-    .catch((error) => console.error("Error fetching data:", error));

@@ -1,0 +1,62 @@
+{
+    "Gender": {
+        "Male": 3,
+        "Female": 3
+    },
+    "Age": {
+        "18-24": 6
+    },
+    "Height": {
+        "Medium: 160 - 170 cm": 6
+    },
+    "Weight": {
+        "Medium: 60 - 80 kg": 3,
+        "Thin: Below 60 kg": 3
+    },
+    "Ethnicity": {
+        "Indian": 6
+    },
+    "Hair Color": {
+        "Black": 6
+    },
+    "Hair Style": {
+        "Short": 3,
+        "Horse Tail": 3
+    },
+    "Beard": {
+        "No": 6
+    },
+    "Moustache": {
+        "Yes": 3,
+        "No": 3
+    },
+    "Glasses": {
+        "Unknown": 3,
+        "Normal": 3
+    },
+    "Head Accessories": {
+        "Unknown": 3,
+        "Cannot see": 3
+    },
+    "Upper Body Cloths": {
+        "Shirt": 3,
+        "Blouse": 3
+    },
+    "Lower Body Cloths": {
+        "Jeans": 6
+    },
+    "Feet": {
+        "Sandal": 3,
+        "Sports Shoes": 3
+    },
+    "Accessories": {
+        "Nothing": 6
+    },
+    "Action": {
+        "walk": 2,
+        "brush hair": 1,
+        "walk side by side": 1,
+        "put on glasses": 1,
+        "take off glasses": 1
+    }
+}

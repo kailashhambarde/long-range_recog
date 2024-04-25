@@ -4,138 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Human Recognition and Identification From Range and Elevation</title>
+    <link rel="stylesheet" href="style2.css">
 
-    <style>
-      body {
-        background: #e3edf7;
-      }
 
-      .tbl-container {
-        max-width: 90%;
-        max-height: fit-content;
-        align-items: center;
-        margin: 0 auto;
-      }
-
-      .tbl-fixed {
-        overflow-x: auto;
-        overflow-y: scroll;
-        height: fit-content;
-        max-height: 70vh;
-      }
-
-      table {
-        width: 100%; /* Set the width to 90% */
-        border-collapse: separate;
-      }
-
-      table th {
-        position: sticky;
-        top: 0px;
-        background: #e8d468;
-        text-align: center;
-        color: #280505;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        cursor: pointer; /* Add cursor pointer for column selection */
-      }
-
-      table td {
-        background: #fff;
-        border: 1px solid #ccc;
-      }
-
-      #tbl-fixed tr:hover {
-        background-color: #c8e6c9; /* Light green */
-      }
-
-      /* Make the Participant ID column header sticky */
-      table th:nth-child(3) {
-        position: sticky;
-        left: 0;
-        background: #e8d468;
-        text-align: center;
-        color: #280505;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        z-index: 1; /* Ensure the header stays above other elements */
-      }
-
-      /* Make the Participant ID column data cells sticky */
-      table td:nth-child(3) {
-        position: sticky;
-        left: 0;
-        background: #fff;
-        z-index: 0; /* Ensure the data cells stay below the header */
-        border: 1px solid #ccc;
-      }
-      /* Styling for logo container */
-      #logo-container {
-        display: flex; /* Use flexbox layout */
-        justify-content: center; /* Center-align content horizontally */
-        margin-bottom: 30px; /* Add bottom margin */
-      }
-
-      /* Styling for logo images */
-      #logo-container img {
-        width: 120px; /* Set width of logo images */
-        height: auto; /* Maintain aspect ratio */
-        margin-right: 20px; /* Add right margin */
-        border: 2px solid #000; /* Border */
-        border-radius: 50%; /* Make the logo images circular */
-        transition: transform 0.3s ease; /* Add a smooth transition effect */
-      }
-
-      /* Hover effect for logo images */
-      #logo-container img:hover {
-        transform: scale(1.1); /* Scale up the logo on hover */
-      }
-
-      /* Additional styling for the logo container */
-      #logo-container::after {
-        content: ""; /* Add content */
-        display: block; /* Make it a block element */
-        clear: both; /* Clear floats */
-      }
-
-      .yes {
-        background-color: #9b84e4; /* Light green */
-      }
-
-      .no {
-        background-color: #ef9a9a; /* Dark red */
-      }
-
-      #nav {
-    background-color: #333;
-    padding: 10px 0;
-    text-align: center;
-    white-space: nowrap;
-    overflow-x: auto;
-  }
-
-  #nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 8px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-  }
-
-  #nav a:hover {
-    background-color: #555;
-  }
-
-      /* Additional styles for sections */
-      section {
-        margin-bottom: 30px;
-        padding: 20px;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-      }
-    </style>
   </head>
   <body>
     <div id="logo-container">
@@ -169,100 +40,104 @@
     <!-- Sections for attributes -->
     <section id="gender">
       <h2>Gender</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="gender-chart" style="height: 300px"></div>
+      <canvas id="gender-chart"></canvas>
+
     </section>
 
     <section id="age">
       <h2>Age</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="age-chart" style="height: 300px"></div>
+      <canvas id="age-chart"></canvas>
+
     </section>
 
     <section id="height">
       <h2>Height</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="height-chart" style="height: 300px"></div>
+      <canvas id="height-chart"></canvas>
+
     </section>
 
     <section id="weight">
       <h2>Weight</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="weight-chart" style="height: 300px"></div>
+      <canvas id="weight-chart"></canvas>
     </section>
 
     <section id="ethnicity">
       <h2>Ethnicity</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="ethnicity-chart" style="height: 300px"></div>
+      <canvas id="ethnicity-chart"></canvas>
     </section>
 
     <section id="hair-color">
       <h2>Hair Color</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="hair-color-chart" style="height: 300px"></div>
+      <canvas id="hair-color-chart"></canvas>
     </section>
 
     <section id="hairstyle">
       <h2>Hairstyle</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="hairstyle-chart" style="height: 300px"></div>
+      <canvas id="hairstyle-chart" ></canvas>
     </section>
 
     <section id="beard">
       <h2>Beard</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="beard-chart" style="height: 300px"></div>
+      <canvas id="beard-chart" ></canvas>
     </section>
 
     <section id="moustache">
       <h2>Moustache</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="moustache-chart" style="height: 300px"></div>
+      <canvas id="moustache-chart" ></canvas>
     </section>
 
     <section id="glasses">
       <h2>Glasses</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="glasses-chart" style="height: 300px"></div>
+      <canvas id="glasses-chart" ></canvas>
     </section>
 
     <section id="head-accessories">
       <h2>Head Accessories</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="head-accessories-chart" style="height: 300px"></div>
+      <canvas id="head-accessories-chart" ></canvas>
     </section>
 
     <section id="upper-body-clothing">
       <h2>Upper Body Clothing</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="upper-body-clothing-chart" style="height: 300px"></div>
+      <canvas id="upper-body-clothing-chart" ></canvas>
     </section>
 
     <section id="lower-body-clothing">
       <h2>Lower Body Clothing</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="lower-body-clothing-chart" style="height: 300px"></div>
+      <canvas id="lower-body-clothing-chart" ></canvas>
     </section>
 
     <section id="feet">
       <h2>Feet</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="feet-chart" style="height: 300px"></div>
+      <canvas id="feet-chart" ></canvas>
     </section>
 
     <section id="accessories">
       <h2>Accessories</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="accessories-chart" style="height: 300px"></div>
+      <canvas id="accessories-chart" ></canvas>
     </section>
 
     <section id="action">
       <h2>Action</h2>
-      <!-- Placeholder for histogram graph -->
-      <div id="action-chart" style="height: 300px"></div>
+      <canvas id="action-chart" ></canvas>
     </section>
 
+    <div class="legend-section">
+      <div class="legend-container">
+          <div class="legend-item">
+              <div class="legend-box light-green"></div>
+              <span>Data received, not annotated</span>
+          </div>
+          <div class="legend-item">
+              <div class="legend-box red"></div>
+              <span>No data received</span>
+          </div>
+          <div class="legend-item">
+              <div class="legend-box blue"></div>
+              <span>Data received, annotation completed</span>
+          </div>
+      </div>
+  </div>
+  
     <div id="tb" class="container tbl-container">
       <div class="row tbl-fixed">
         <table class="table-striped table-condensed">
@@ -713,6 +588,7 @@
         </table>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
