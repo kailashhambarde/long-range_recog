@@ -1,3 +1,7 @@
+
+
+
+
 function populateTable(data) {
     console.log(data);
 
@@ -9,6 +13,9 @@ function populateTable(data) {
     data.forEach(function (item) {
         item.PID.forEach(function (pid) {
             var row = document.createElement("tr");
+
+            // Add classes for different backgrounds based on cell content
+            row.classList.add("row-animation");
             row.innerHTML = `<td>${rowCounter}</td>
           <td>${item.Representative}</td>
           <td>${pid.PID}</td>
@@ -52,26 +59,74 @@ function populateTable(data) {
           <td class="${pid.S2P15 ? pid.S2P15.toLowerCase() : ''}">${pid.S2P15 ? pid.S2P15 : ''}</td>
           <td class="${pid.S2P16 ? pid.S2P16.toLowerCase() : ''}">${pid.S2P16 ? pid.S2P16 : ''}</td>
           <td class="${pid.S2P17 ? pid.S2P17.toLowerCase() : ''}">${pid.S2P17 ? pid.S2P17 : ''}</td>
-          <td class="${pid.S2P18 ? pid.S2P18.toLowerCase() : ''}">${pid.S2P18 ? pid.S2P18 : ''}</td>`;
-           
-            row.querySelectorAll("td").forEach(function (cell) {
-                var cellText = cell.textContent.trim();
-                if (cellText.toLowerCase() === "yes") {
-                    cell.classList.add("yes");
-                } else if (cellText.toLowerCase() === "no") {
-                    cell.classList.add("no");
-                } else if (cellText.toLocaleLowerCase() ==='data') {
-                    cell.classList.add("data")
-                }
-            });
+          <td class="${pid.S2P18 ? pid.S2P18.toLowerCase() : ''}">${pid.S2P18 ? pid.S2P18 : ''}</td>
+          <td class="filter-count"></td>`; 
 
             tbody.appendChild(row);
             rowCounter++;
         });
     });
-
-    //fetchAndPlotHistogram();
+    // Update filter counts after populating the table
+    //updateFilterCounts();
+    // Create a separate row for filter counts at the end of the table
+    createFilterCountRow();
+    // Add animation class to rows
+    animateRows();
 }
+
+function createFilterCountRow() {
+    var tbody = document.getElementById("table-body");
+    var filterRow = document.getElementById("filter-count-row");
+
+    if (!filterRow) {
+        filterRow = document.createElement("tr");
+        filterRow.id = "filter-count-row";
+        filterRow.style.backgroundColor = "black";
+        filterRow.style.fontWeight = "bold";
+    } else {
+        filterRow.innerHTML = ""; 
+    }
+
+    // Loop through all cells except the first one (which is the row counter)
+    for (var i = 1; i < tbody.rows[0].cells.length; i++) {
+        var filterCount = 0;
+        // Loop through all rows except the filter count row itself
+        for (var j = 0; j < tbody.rows.length - 1; j++) {
+            var cell = tbody.rows[j].cells[i];
+            if (tbody.rows[j].style.display !== "none" && cell.textContent !== "") {
+                filterCount++;
+            }
+        }
+        // Add filter count cell to the filter row
+        var filterCountCell = document.createElement("td");
+        filterCountCell.textContent = filterCount;
+        filterRow.appendChild(filterCountCell);
+    }
+
+    // Add or update filter row to the table body
+    if (!document.getElementById("filter-count-row")) {
+        tbody.appendChild(filterRow);
+    }
+}
+
+
+
+
+// Function to animate rows
+function animateRows() {
+    var rows = document.querySelectorAll('.row-animation');
+    rows.forEach(function(row, index) {
+        setTimeout(function() {
+            row.classList.add('animate');
+        }, index * 100);
+    });
+}
+
+
+
+
+
+
 
 
 
@@ -189,36 +244,71 @@ fetchAndPlotHistogram();
 
 
 
-
 function filterTableByColumn(columnIndex, filterValue) {
     var rows = document.querySelectorAll("#table-body tr");
 
-    rows.forEach(function (row) {
+    rows.forEach(function (row, index) {
         var cell = row.querySelectorAll("td")[columnIndex];
         if (!cell) return;
-        
+
         var filterCount = 0; // Initialize filter count
-        
+
         // Loop through all cells in the row except the first one (which is the row counter)
-        for (var i = 1; i < row.cells.length; i++) {
+        for (var i = 1; i < row.cells.length - 1; i++) {
             var currentCell = row.cells[i];
-            if (currentCell.textContent.toLowerCase().includes(filterValue.toLowerCase())) {
+            if (currentCell.textContent.toLowerCase().includes(filterValue.toLowerCase()) || filterValue === "all") {
                 filterCount++;
             }
         }
-        
+
         if (filterValue === "all" || cell.textContent.toLowerCase().includes(filterValue.toLowerCase())) {
             row.style.display = "";
         } else {
             row.style.display = "none";
         }
-        
-        // Add filter count at the end of the row
+
+        var tbody =document.getElementById('table-body')
+        var filterRow = document.getElementById('filter-count-row');
+
+        if (!filterRow) {
+            filterRow = document.createElement('tr');
+            filterRow.id = 'filter-count-row';
+            filterRow.style.backgroundColor = "lightblue";
+            filterRow.style.fontWeight = "bold";
+        } else {
+            filterRow.innerHTML = '';
+        }
+
+        // Add filter count cell to the filter row
         var filterCountCell = document.createElement("td");
         filterCountCell.textContent = filterCount;
-        row.appendChild(filterCountCell);
+        filterRow.appendChild(filterCountCell);
+
+        // Update filter count cell value
+        if (filterValue === "all") {
+            filterCountCell.textContent = filterCount;
+        } else {
+            // For "Yes" and "No" filters, count only rows where the specific cell matches the filter value
+            if (cell.textContent.toLowerCase() === filterValue.toLowerCase()) {
+                filterCountCell.textContent = 1;
+            } else {
+                // Show the count even if the row is hidden
+                filterCountCell.textContent = 0;
+            }
+        }
     });
+
+    createFilterCountRow();
 }
+
+
+
+
+
+
+
+
+
 
 
 document.getElementById("filterSR").addEventListener("input", function () {

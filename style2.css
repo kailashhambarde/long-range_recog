@@ -86,15 +86,15 @@ table td:nth-child(3) {
 }
 
 .yes {
-  background-color: #9b84e4; 
+  background-color:lightblue; 
 }
 
 .no {
-  background-color: #ef9a9a; 
+  background-color: red; 
 }
 
-data. {
-  background-color: #9b84e4;
+.data {
+  background-color:  lightgreen;
 }
 
 #nav {
@@ -165,5 +165,7 @@ canvas {
 }
 
 .blue {
-  background-color: blue;
+  background-color:lightblue;
 }
+
+
