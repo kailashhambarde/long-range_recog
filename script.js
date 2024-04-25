@@ -18,16 +18,38 @@ function populateTable(data) {
           <td class="${pid.L_image ? pid.L_image.toLowerCase() : ''}">${pid.L_image ? pid.L_image : ''}</td>
           <td class="${pid.R_image ? pid.R_image.toLowerCase() : ''}">${pid.R_image ? pid.R_image : ''}</td>
           <td class="${pid.Video ? pid.Video.toLowerCase() : ''}">${pid.Video ? pid.Video : ''}</td>
-          <td class="${pid.S1P1 ? pid.S1P1.toLowerCase() : ''}">${pid.S1P1 ? pid.S1P1 : ''}</td>`;
-            // Loop through S1 and S2 properties
-            for (var i = 1; i <= 18; i++) {
-                var s1Key = "S1P" + i;
-                var s2Key = "S2P" + i;
-                var s1Value = pid[s1Key] ? pid[s1Key] : ''; // Check if S1 value exists, otherwise set to empty string
-                var s2Value = pid[s2Key] ? pid[s2Key] : ''; // Check if S2 value exists, otherwise set to empty string
-                row.innerHTML += `<td class="${s1Value.toLowerCase()}">${s1Value}</td>`;
-                row.innerHTML += `<td class="${s2Value.toLowerCase()}">${s2Value}</td>`;
-            }
+          <td class="${pid.S1P1 ? pid.S1P1.toLowerCase() : ''}">${pid.S1P1 ? pid.S1P1 : ''}</td>
+          <td class="${pid.S1P2 ? pid.S1P2.toLowerCase() : ''}">${pid.S1P2 ? pid.S1P2 : ''}</td>
+          <td class="${pid.S1P3 ? pid.S1P3.toLowerCase() : ''}">${pid.S1P3 ? pid.S1P3 : ''}</td>
+          <td class="${pid.S1P4 ? pid.S1P4.toLowerCase() : ''}">${pid.S1P4 ? pid.S1P4 : ''}</td>
+          <td class="${pid.S1P5 ? pid.S1P5.toLowerCase() : ''}">${pid.S1P5 ? pid.S1P5 : ''}</td>
+          <td class="${pid.S1P6 ? pid.S1P6.toLowerCase() : ''}">${pid.S1P6 ? pid.S1P6 : ''}</td>
+          <td class="${pid.S1P7 ? pid.S1P7.toLowerCase() : ''}">${pid.S1P7 ? pid.S1P7 : ''}</td>
+          <td class="${pid.S1P8 ? pid.S1P8.toLowerCase() : ''}">${pid.S1P8 ? pid.S1P8 : ''}</td>
+          <td class="${pid.S1P9 ? pid.S1P9.toLowerCase() : ''}">${pid.S1P9 ? pid.S1P9 : ''}</td>
+          <td class="${pid.S1P10 ? pid.S1P10.toLowerCase() : ''}">${pid.S1P10 ? pid.S1P10 : ''}</td>
+          <td class="${pid.S1P11 ? pid.S1P11.toLowerCase() : ''}">${pid.S1P11 ? pid.S1P11 : ''}</td>
+          <td class="${pid.S1P12 ? pid.S1P12.toLowerCase() : ''}">${pid.S1P12 ? pid.S1P12 : ''}</td>
+          <td class="${pid.S2P1 ? pid.S2P1.toLowerCase() : ''}">${pid.S2P1 ? pid.S2P1 : ''}</td>
+          <td class="${pid.S2P2 ? pid.S2P2.toLowerCase() : ''}">${pid.S2P2 ? pid.S2P2 : ''}</td>
+          <td class="${pid.S2P3 ? pid.S2P3.toLowerCase() : ''}">${pid.S2P3 ? pid.S2P3 : ''}</td>
+          <td class="${pid.S2P4 ? pid.S2P4.toLowerCase() : ''}">${pid.S2P4 ? pid.S2P4 : ''}</td>
+          <td class="${pid.S2P5 ? pid.S2P5.toLowerCase() : ''}">${pid.S2P5 ? pid.S2P5 : ''}</td>
+          <td class="${pid.S2P6 ? pid.S2P6.toLowerCase() : ''}">${pid.S2P6 ? pid.S2P6 : ''}</td>
+          <td class="${pid.S2P7 ? pid.S2P7.toLowerCase() : ''}">${pid.S2P7 ? pid.S2P7 : ''}</td>
+          <td class="${pid.S2P8 ? pid.S2P8.toLowerCase() : ''}">${pid.S2P8 ? pid.S2P8 : ''}</td>
+          <td class="${pid.S2P9 ? pid.S2P9.toLowerCase() : ''}">${pid.S2P9 ? pid.S2P9 : ''}</td>
+          <td class="${pid.S2P10 ? pid.S2P10.toLowerCase() : ''}">${pid.S2P10 ? pid.S2P10 : ''}</td>
+          <td class="${pid.S2P11 ? pid.S2P11.toLowerCase() : ''}">${pid.S2P11 ? pid.S2P11 : ''}</td>
+          <td class="${pid.S2P12 ? pid.S2P12.toLowerCase() : ''}">${pid.S2P12 ? pid.S2P12 : ''}</td>
+          <td class="${pid.S2P13 ? pid.S2P13.toLowerCase() : ''}">${pid.S2P13 ? pid.S2P13 : ''}</td>
+          <td class="${pid.S2P14 ? pid.S2P14.toLowerCase() : ''}">${pid.S2P14 ? pid.S2P14 : ''}</td>
+          <td class="${pid.S2P15 ? pid.S2P15.toLowerCase() : ''}">${pid.S2P15 ? pid.S2P15 : ''}</td>
+          <td class="${pid.S2P16 ? pid.S2P16.toLowerCase() : ''}">${pid.S2P16 ? pid.S2P16 : ''}</td>
+          <td class="${pid.S2P17 ? pid.S2P17.toLowerCase() : ''}">${pid.S2P17 ? pid.S2P17 : ''}</td>
+          <td class="${pid.S2P18 ? pid.S2P18.toLowerCase() : ''}">${pid.S2P18 ? pid.S2P18 : ''}</td>
+          `;
+           
             // Add classes based on cell values for coloring
             row.querySelectorAll("td").forEach(function (cell) {
                 var cellText = cell.textContent.trim();
