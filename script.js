@@ -60,6 +60,8 @@ function populateTable(data) {
                     cell.classList.add("yes");
                 } else if (cellText.toLowerCase() === "no") {
                     cell.classList.add("no");
+                } else if (cellText.toLocaleLowerCase() ==='data') {
+                    cell.classList.add("data")
                 }
             });
 
@@ -68,8 +70,11 @@ function populateTable(data) {
         });
     });
 
-    fetchAndPlotHistogram();
+    //fetchAndPlotHistogram();
 }
+
+
+
 function fetchAndPlotHistogram() {
     Promise.all([
         fetch("data.json").then(response => response.json()), 
@@ -182,22 +187,39 @@ function generateRandomColors(count) {
 
 fetchAndPlotHistogram();
 
+
+
+
 function filterTableByColumn(columnIndex, filterValue) {
     var rows = document.querySelectorAll("#table-body tr");
 
     rows.forEach(function (row) {
         var cell = row.querySelectorAll("td")[columnIndex];
-        if (!cell) return; 
-        if (
-            filterValue === "all" ||
-            cell.textContent.toLowerCase().includes(filterValue.toLowerCase())
-        ) {
+        if (!cell) return;
+        
+        var filterCount = 0; // Initialize filter count
+        
+        // Loop through all cells in the row except the first one (which is the row counter)
+        for (var i = 1; i < row.cells.length; i++) {
+            var currentCell = row.cells[i];
+            if (currentCell.textContent.toLowerCase().includes(filterValue.toLowerCase())) {
+                filterCount++;
+            }
+        }
+        
+        if (filterValue === "all" || cell.textContent.toLowerCase().includes(filterValue.toLowerCase())) {
             row.style.display = "";
         } else {
             row.style.display = "none";
         }
+        
+        // Add filter count at the end of the row
+        var filterCountCell = document.createElement("td");
+        filterCountCell.textContent = filterCount;
+        row.appendChild(filterCountCell);
     });
 }
+
 
 document.getElementById("filterSR").addEventListener("input", function () {
     filterTableByColumn(0, this.value);
@@ -232,13 +254,17 @@ document.getElementById("filterVideo").addEventListener("input", function () {
 });
 
 for (var i = 1; i <= 18; i++) {
-    document.getElementById(`filterS1P${i}`).addEventListener("input", function () {
-        filterTableByColumn(7 + i, this.value);
-    });
+    (function (index) {
+        document.getElementById(`filterS1P${index}`).addEventListener("input", function () {
+            filterTableByColumn(7 + index, this.value);
+        });
+    })(i);
 }
 
 for (var j = 1; j <= 18; j++) {
-    document.getElementById(`filterS2P${j}`).addEventListener("input", function () {
-        filterTableByColumn(25 + j, this.value);
-    });
+    (function (index) {
+        document.getElementById(`filterS2P${index}`).addEventListener("input", function () {
+            filterTableByColumn(25 + index, this.value);
+        });
+    })(j);
 }
