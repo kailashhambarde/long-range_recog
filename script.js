@@ -66,64 +66,10 @@ function populateTable(data) {
             rowCounter++;
         });
     });
-    // Update filter counts after populating the table
-    //updateFilterCounts();
-    // Create a separate row for filter counts at the end of the table
+
     createFilterCountRow();
     // Add animation class to rows
-    animateRows();
 }
-
-function createFilterCountRow() {
-    var tbody = document.getElementById("table-body");
-    var filterRow = document.getElementById("filter-count-row");
-
-    if (!filterRow) {
-        filterRow = document.createElement("tr");
-        filterRow.id = "filter-count-row";
-        filterRow.style.backgroundColor = "black";
-        filterRow.style.fontWeight = "bold";
-    } else {
-        filterRow.innerHTML = ""; 
-    }
-
-    // Loop through all cells except the first one (which is the row counter)
-    for (var i = 1; i < tbody.rows[0].cells.length; i++) {
-        var filterCount = 0;
-        // Loop through all rows except the filter count row itself
-        for (var j = 0; j < tbody.rows.length - 1; j++) {
-            var cell = tbody.rows[j].cells[i];
-            if (tbody.rows[j].style.display !== "none" && cell.textContent !== "") {
-                filterCount++;
-            }
-        }
-        // Add filter count cell to the filter row
-        var filterCountCell = document.createElement("td");
-        filterCountCell.textContent = filterCount;
-        filterRow.appendChild(filterCountCell);
-    }
-
-    // Add or update filter row to the table body
-    if (!document.getElementById("filter-count-row")) {
-        tbody.appendChild(filterRow);
-    }
-}
-
-
-
-
-// Function to animate rows
-function animateRows() {
-    var rows = document.querySelectorAll('.row-animation');
-    rows.forEach(function(row, index) {
-        setTimeout(function() {
-            row.classList.add('animate');
-        }, index * 100);
-    });
-}
-
-
-
 
 
 
@@ -244,62 +190,139 @@ fetchAndPlotHistogram();
 
 
 
-function filterTableByColumn(columnIndex, filterValue) {
-    var rows = document.querySelectorAll("#table-body tr");
 
-    rows.forEach(function (row, index) {
-        var cell = row.querySelectorAll("td")[columnIndex];
-        if (!cell) return;
 
-        var filterCount = 0; // Initialize filter count
 
-        // Loop through all cells in the row except the first one (which is the row counter)
-        for (var i = 1; i < row.cells.length - 1; i++) {
-            var currentCell = row.cells[i];
-            if (currentCell.textContent.toLowerCase().includes(filterValue.toLowerCase()) || filterValue === "all") {
-                filterCount++;
+
+function createFilterCountRow() {
+    var tbody = document.getElementById("table-body");
+    var filterRow = document.getElementById('filter-count-row');
+
+    if (!filterRow) {
+        // Initialize counters for "Yes", "No", and "Data" occurrences for each column
+        var yesCounts = [];
+        var noCounts = [];
+        var dataCounts = [];
+
+        // Loop through all rows in the table body
+        for (var i = 0; i < tbody.rows.length; i++) {
+            // Loop through each column after the third column
+            for (var j = 0; j < tbody.rows[i].cells.length; j++) {
+                // Retrieve the cell for the current row and column
+                var cell = tbody.rows[i].cells[j];
+                // Extract the text content from the cell and convert it to lowercase
+                var cellText = cell.innerText.trim().toLowerCase();
+
+                // Initialize counters for the current column if not already initialized
+                if (!yesCounts[j]) yesCounts[j] = 0;
+                if (!noCounts[j]) noCounts[j] = 0;
+                if (!dataCounts[j]) dataCounts[j] = 0;
+
+                // Check the content of the cell and update the corresponding counter for the current column
+                if (cellText === "yes") {
+                    yesCounts[j]++;
+                } else if (cellText === "no") {
+                    noCounts[j]++;
+                } else if (cellText === "data") {
+                    dataCounts[j]++;
+                }
             }
         }
+
+        // Create a new row at the end of the table
+        var newRow = tbody.insertRow(tbody.rows.length);
+
+        // Loop through each column after the third column
+        for (var k = 0; k < yesCounts.length; k++) {
+            // Create a new cell for the current column in the new row
+            var newCell = newRow.insertCell();
+            // Set the text content of the cell to the counts for the current column
+            newCell.textContent = "Yes:" + yesCounts[k] + ", No:" + noCounts[k] + ", Data:" + dataCounts[k];
+        }
+        newRow.style.backgroundColor = "blue !important";
+        newRow.style.fontWeight = "bold";
+        
+    }
+}
+
+
+
+
+
+
+function filterTableByColumn(columnIndex, filterValue) {
+    var rows = document.querySelectorAll("#table-body tr");
+    var tbody = document.getElementById('table-body');
+    var filterRow = document.getElementById('filter-count-row');
+
+    // Initialize counters for "Yes", "No", and "Data" occurrences for each column
+    var yesCounts = [];
+    var noCounts = [];
+    var dataCounts = [];
+
+    rows.forEach(function(row) {
+        // Loop through all cells in the row except the first one (which is the row counter)
+        for (var i = 0; i < row.cells.length - 1; i++) {
+            var currentCell = row.cells[i];
+            var cellText = currentCell.textContent.toLowerCase().trim();
+
+            // Initialize counts for the current column
+            yesCounts[i] = yesCounts[i] || 0;
+            noCounts[i] = noCounts[i] || 0;
+            dataCounts[i] = dataCounts[i] || 0;
+
+            // Increment corresponding count based on cell content
+            if (cellText === "yes") {
+                yesCounts[i]++;
+            } else if (cellText === "no") {
+                noCounts[i]++;
+            } else if (cellText === "data") {
+                dataCounts[i]++;
+            }
+        }
+
+        // Update row display based on filter value
+        var cell = row.cells[columnIndex];
+        if (!cell) return;
 
         if (filterValue === "all" || cell.textContent.toLowerCase().includes(filterValue.toLowerCase())) {
             row.style.display = "";
         } else {
             row.style.display = "none";
         }
-
-        var tbody =document.getElementById('table-body')
-        var filterRow = document.getElementById('filter-count-row');
-
-        if (!filterRow) {
-            filterRow = document.createElement('tr');
-            filterRow.id = 'filter-count-row';
-            filterRow.style.backgroundColor = "lightblue";
-            filterRow.style.fontWeight = "bold";
-        } else {
-            filterRow.innerHTML = '';
-        }
-
-        // Add filter count cell to the filter row
-        var filterCountCell = document.createElement("td");
-        filterCountCell.textContent = filterCount;
-        filterRow.appendChild(filterCountCell);
-
-        // Update filter count cell value
-        if (filterValue === "all") {
-            filterCountCell.textContent = filterCount;
-        } else {
-            // For "Yes" and "No" filters, count only rows where the specific cell matches the filter value
-            if (cell.textContent.toLowerCase() === filterValue.toLowerCase()) {
-                filterCountCell.textContent = 1;
-            } else {
-                // Show the count even if the row is hidden
-                filterCountCell.textContent = 0;
-            }
-        }
     });
 
-    createFilterCountRow();
+    // Create or update the filter count row
+    if (!filterRow) {
+        filterRow = tbody.insertRow(tbody.rows.length);
+        filterRow.id = 'filter-count-row';
+        filterRow.style.backgroundColor = "lightblue";
+        filterRow.style.fontWeight = "bold";
+    } else {
+        filterRow.innerHTML = '';
+    }
+
+  
+
+    // Loop through each column after the first one
+    //for (var k = 0; k < yesCounts.length - 1; k++) {
+    //    // Create a new cell for the current column in the filter row
+    //    var filterCountCell = filterRow.insertCell();
+        // Calculate total count for the current column
+   //     var totalCount = (yesCounts[k] || 0) + (noCounts[k] || 0) + (dataCounts[k] || 0);
+        // Set the text content of the cell to the counts for the current column
+   //     filterCountCell.textContent = "Y:" + (yesCounts[k] || 0) + ", N:" + (noCounts[k] || 0) + ", D:" + (dataCounts[k] || 0) + ", T:" + totalCount;
+    //}
+    //filterRow.style.backgroundColor = "skyblue"; // Change the color to whatever you prefer
+
 }
+
+
+
+
+
+
+
 
 
 
@@ -343,7 +366,7 @@ document.getElementById("filterVideo").addEventListener("input", function () {
     filterTableByColumn(7, this.value);
 });
 
-for (var i = 1; i <= 18; i++) {
+for (var i = 1; i <= 19; i++) {
     (function (index) {
         document.getElementById(`filterS1P${index}`).addEventListener("input", function () {
             filterTableByColumn(7 + index, this.value);
@@ -351,7 +374,7 @@ for (var i = 1; i <= 18; i++) {
     })(i);
 }
 
-for (var j = 1; j <= 18; j++) {
+for (var j = 1; j <= 19; j++) {
     (function (index) {
         document.getElementById(`filterS2P${index}`).addEventListener("input", function () {
             filterTableByColumn(25 + index, this.value);

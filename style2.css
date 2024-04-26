@@ -169,3 +169,25 @@ canvas {
 }
 
 
+
+
+/* Define a CSS class for the filter count row */
+.filter-count-row {
+  background-color: skyblue; /* Change the background color */
+  font-weight: bold;
+  transition: background-color 0.5s ease; /* Add a transition for smoother color change */
+}
+
+/* Define a CSS class for animation when the row is added */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
