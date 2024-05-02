@@ -1,61 +1,76 @@
 {
     "Gender": {
-        "Male": 3,
-        "Female": 3
+        "Male": 10,
+        "Female": 12
     },
     "Age": {
-        "18-24": 6
+        "18-24": 19,
+        "25-34": 3
     },
     "Height": {
-        "Medium: 160 - 170 cm": 6
+        "Tall: Above 170 cm": 6,
+        "Medium: 160 - 170 cm": 16
     },
     "Weight": {
-        "Medium: 60 - 80 kg": 3,
-        "Thin: Below 60 kg": 3
+        "Fat: Above 80 kg": 3,
+        "Thin: Below 60 kg": 6,
+        "Medium: 60 - 80 kg": 13
     },
     "Ethnicity": {
-        "Indian": 6
+        "Indian": 22
     },
     "Hair Color": {
-        "Black": 6
+        "Black": 22
     },
     "Hair Style": {
-        "Short": 3,
-        "Horse Tail": 3
+        "Short": 10,
+        "Horse Tail": 12
     },
     "Beard": {
-        "No": 6
+        "Yes": 6,
+        "No": 13,
+        "Unknown": 3
     },
     "Moustache": {
-        "Yes": 3,
-        "No": 3
+        "Yes": 10,
+        "No": 12
     },
     "Glasses": {
-        "Unknown": 3,
+        "Unknown": 19,
         "Normal": 3
     },
     "Head Accessories": {
-        "Unknown": 3,
+        "Unknown": 19,
         "Cannot see": 3
     },
     "Upper Body Cloths": {
-        "Shirt": 3,
-        "Blouse": 3
+        "Shirt": 7,
+        "Dress": 3,
+        "TShirt": 6,
+        "Blouse": 6
     },
     "Lower Body Cloths": {
-        "Jeans": 6
+        "Jeans": 16,
+        "Uniform": 1,
+        "Leggings": 2,
+        "Pants": 3
     },
     "Feet": {
-        "Sandal": 3,
-        "Sports Shoes": 3
+        "Sandal": 13,
+        "Sports Shoes": 9
     },
     "Accessories": {
-        "Nothing": 6
+        "Nothing": 22
     },
     "Action": {
-        "walk": 2,
-        "brush hair": 1,
-        "walk side by side": 1,
+        "point somewhere": 1,
+        "wave hands": 1,
+        "make a phone call": 1,
+        "walk": 8,
+        "brush hair": 2,
+        "high five": 3,
+        "reach into pockets": 2,
+        "walk side by side": 2,
         "put on glasses": 1,
         "take off glasses": 1
     }
