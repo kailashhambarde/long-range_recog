@@ -1,82 +1,76 @@
 {
     "Gender": {
-        "Male": 19,
-        "Female": 26
+        "Female": 43,
+        "Male": 21
     },
     "Age": {
-        "18-24": 42,
-        "25-34": 3
+        "18-24": 64
     },
     "Height": {
-        "Tall: Above 170 cm": 15,
-        "Child: Below 150 cm": 2,
-        "Medium: 160 - 170 cm": 25,
-        "Short: 150 - 160 cm": 3
+        "Medium: 160 - 170 cm": 27,
+        "Short: 150 - 160 cm": 25,
+        "Tall: Above 170 cm": 9,
+        "Child: Below 150 cm": 3
     },
     "Weight": {
-        "Medium: 60 - 80 kg": 28,
-        "Thin: Below 60 kg": 14,
-        "Fat: Above 80 kg": 3
+        "Thin: Below 60 kg": 46,
+        "Medium: 60 - 80 kg": 18
     },
     "Ethnicity": {
-        "Indian": 45
+        "Indian": 64
     },
     "Hair Color": {
-        "Black": 45
+        "Black": 64
     },
     "Hair Style": {
-        "Short": 19,
-        "Long": 2,
-        "Horse Tail": 24
+        "Horse Tail": 40,
+        "Short": 21,
+        "Long": 3
     },
     "Beard": {
-        "Yes": 15,
-        "No": 27,
-        "Unknown": 3
+        "No": 46,
+        "Yes": 18
     },
     "Moustache": {
-        "Yes": 19,
-        "No": 26
+        "No": 46,
+        "Yes": 18
     },
     "Glasses": {
-        "Unknown": 36,
-        "Normal": 9
+        "Normal": 16,
+        "Unknown": 48
     },
     "Head Accessories": {
-        "Unknown": 42,
-        "Cannot see": 3
+        "Unknown": 61,
+        "Scarf": 3
     },
     "Upper Body Cloths": {
-        "Shirt": 16,
-        "Blouse": 14,
-        "Dress": 9,
-        "TShirt": 6
+        "Blouse": 40,
+        "Shirt": 24
     },
     "Lower Body Cloths": {
-        "Jeans": 28,
-        "Leggings": 13,
-        "Uniform": 1,
-        "Pants": 3
+        "Leggings": 31,
+        "Jeans": 33
     },
     "Feet": {
-        "Sandal": 30,
-        "Sports Shoes": 15
+        "Sandal": 38,
+        "Sports Shoes": 26
     },
     "Accessories": {
-        "Nothing": 45
+        "Nothing": 64
     },
     "Action": {
-        "walk": 23,
+        "thumb up": 1,
+        "walk": 35,
+        "pushing someone": 2,
+        "reach into pockets": 4,
         "take off glasses": 2,
         "point somewhere": 2,
-        "brush hair": 3,
-        "walk side by side": 4,
-        "wave hands": 1,
+        "brush hair": 8,
+        "look at the watch": 3,
         "make a phone call": 1,
+        "wave hands": 1,
         "high five": 3,
-        "reach into pockets": 3,
-        "cheer": 1,
-        "kicking someone": 1,
+        "wave a goodbye": 1,
         "put on glasses": 1
     }
 }
